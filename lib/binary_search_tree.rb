@@ -73,6 +73,36 @@ class BinarySearchTree
     end
   end
 
+  def depth_of?(score, node = @root)
+    if node.nil?
+      return "There are no nodes in the tree"
+    elsif node.score == score
+      return node.depth
+    else
+      case node.score <=> score
+      when -1 then right_node_depth_of?(score, node)
+      when 1 then left_node_depth_of?(score, node)
+      when 0 then return node.depth
+      end
+    end
+  end
+
+  def right_node_depth_of?(score, node)
+    if node.right.nil?
+      return nil
+    else
+      depth_of?(score, node.right)
+    end
+  end
+
+  def left_node_depth_of?(score, node)
+    if node.left.nil?
+      return nil
+    else
+      depth_of?(score, node.left)
+    end
+  end
+
   def max(node = root)
     until node.right.nil?
       node = node.right
@@ -103,36 +133,6 @@ class BinarySearchTree
     end
   end
 
-  def depth_of(score, node = @root)
-    if node.nil?
-      return "There are no nodes in the tree"
-    elsif node.score == score
-      return node.depth
-    else
-      case node.score <=> score
-      when -1 then right_node_depth_of?(score, node)
-      when 1 then left_node_depth_of?(score, node)
-      when 0 then return node.depth
-      end
-    end
-  end
-
-  def right_node_depth_of?(score, node)
-    if node.right.nil?
-      return nil
-    else
-      depth_of(score, node.right)
-    end
-  end
-
-  def left_node_depth_of?(score, node)
-    if node.left.nil?
-      return nil
-    else
-      depth_of(score, node.left)
-    end
-  end
-
   def traverse(tree = self)
     self.root.walk_nodes
   end
@@ -140,8 +140,8 @@ class BinarySearchTree
 
   def sort
 
-    #starts at the root node goes left till nil || node data already in list. If nil adds data to list. If already in list goes right. If both root branches already in list, exit.
   end
+    #starts at the root node goes left till nil || node data already in list. If nil adds data to list. If already in list goes right. If both root branches already in list, exit.
 
 
   def health

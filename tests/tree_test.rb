@@ -34,11 +34,13 @@ class TreeTest < Minitest::Test
     refute tree_1.include?(43)
   end
 
-  def test_it_can_load_a_file
+  def test_it_can_return_depth_for_a_given_score
     tree_1 = BinarySearchTree.new
-    tree_2 = BinarySearchTree.new
-    assert_equal "There were 99 movies successfully added to the tree!", tree_1.load('./tests/movies.txt')
-    assert_equal "There were 20 movies successfully added to the tree!", tree_1.load('./tests/movies2.txt')
+    assert_equal "There are no nodes in the tree", tree_1.depth_of?(71)
+    tree_1.load('./tests/movies2.txt')
+    assert_equal 0, tree_1.depth_of?(71)
+    assert_equal nil, tree_1.depth_of?(10)
+    assert_equal 2, tree_1.depth_of?(11)
   end
 
   def test_max_score
@@ -51,6 +53,13 @@ class TreeTest < Minitest::Test
     tree_1 = BinarySearchTree.new
     tree_1.load('./tests/movies2.txt')
     assert_equal ({"I Love You Phillip Morris" => 7}), tree_1.min
+  end
+
+  def test_it_can_load_a_file
+    tree_1 = BinarySearchTree.new
+    tree_2 = BinarySearchTree.new
+    assert_equal "There were 99 movies successfully added to the tree!", tree_1.load('./tests/movies.txt')
+    assert_equal "There were 20 movies successfully added to the tree!", tree_1.load('./tests/movies2.txt')
   end
 
 end
