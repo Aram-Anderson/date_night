@@ -133,17 +133,9 @@ class BinarySearchTree
     end
   end
 
-  def traverse(tree = self)
-    self.root.walk_nodes
-  end
-
-
   def sort
-
   end
     #starts at the root node goes left till nil || node data already in list. If nil adds data to list. If already in list goes right. If both root branches already in list, exit.
-
-
   def health
   end
 
