@@ -77,14 +77,14 @@ class BinarySearchTree
     until node.right.nil?
       node = node.right
     end
-    return {node.title => node.score}
+    node.data
   end
 
   def min(node = root)
     until node.left.nil?
       node = node.left
     end
-    return {node.title => node.score}
+    node.data
   end
 
   def load(file)
@@ -133,8 +133,14 @@ class BinarySearchTree
     end
   end
 
+  def traverse(tree = self)
+    self.root.walk_nodes
+  end
+
 
   def sort
+
+    #starts at the root node goes left till nil || node data already in list. If nil adds data to list. If already in list goes right. If both root branches already in list, exit.
   end
 
 
