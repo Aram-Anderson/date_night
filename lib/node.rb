@@ -10,6 +10,7 @@ class Node
   @left = nil
   @right = nil
   @depth = 0
+  @children = 0
   @data = {title => score}
   end
 end
