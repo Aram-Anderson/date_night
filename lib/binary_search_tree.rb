@@ -6,6 +6,7 @@ class BinarySearchTree
 
   def initialize
     @root = nil
+    @results = []
   end
 
   def insert(score, title, node = @root, depth = 0)
@@ -133,9 +134,33 @@ class BinarySearchTree
     end
   end
 
+<<<<<<< HEAD
   def sort
   end
     #starts at the root node goes left till nil || node data already in list. If nil adds data to list. If already in list goes right. If both root branches already in list, exit.
+=======
+    #starts at the root node goes left till nil || node data already in list. If nil adds data to list. If already in list goes right. If both root branches already in list, exit.
+  def sort(node = @root)
+    if @root.nil?
+      return "There are no nodes in the tree"
+    else
+      @results << sort_left(node)
+      @results << sort_right(node)
+    end
+    @results.uniq
+  end
+
+  def sort_left(node)
+    sort(node.left) if !node.left.nil?
+    node.data
+  end
+
+  def sort_right(node)
+    sort(node.right) if !node.right.nil?
+    node.data
+  end
+
+>>>>>>> build_sort
   def health
   end
 
