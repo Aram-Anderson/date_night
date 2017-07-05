@@ -11,6 +11,5 @@ class Node
   @right = nil
   @depth = 0
   @data = {title => score}
-  @visited = false
   end
 end
