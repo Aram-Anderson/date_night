@@ -133,38 +133,38 @@ class BinarySearchTree
       movie.strip.split(", ")
     end
   end
+  # 
+  # def sort(node = @root, &block)
+  #   @root.each do |node|
+  #     case node
+  #     when left  then left && left.sort(node, &block)
+  #     when self  then yield self
+  #     when right then right && right.sort(node, &block)
+  #     end
+  #   end
+  # end
+  #
+  # sort { |node| @results << node.data }
 
-  def sort(node = @root, &block)
-    @root.each do |node|
-      case node
-      when left  then left && left.sort(node, &block)
-      when self  then yield self
-      when right then right && right.sort(node, &block)
-      end
+  def sort(node = @root)
+    if @root.nil?
+      return "There are no nodes in the tree"
+    else
+      @results << sort_left(node)
+      @results << sort_right(node)
     end
+    @results.uniq
   end
 
-  sort { |node| @results << node.data }
+  def sort_left(node)
+    sort(node.left) if !node.left.nil?
+    node.data
+  end
 
-  # def sort(node = @root)
-  #   if @root.nil?
-  #     return "There are no nodes in the tree"
-  #   else
-  #     @results << sort_left(node)
-  #     @results << sort_right(node)
-  #   end
-  #   @results.uniq
-  # end
-  #
-  # def sort_left(node)
-  #   sort(node.left) if !node.left.nil?
-  #   node.data
-  # end
-  #
-  # def sort_right(node)
-  #   sort(node.right) if !node.right.nil?
-  #   node.data
-  # end
+  def sort_right(node)
+    sort(node.right) if !node.right.nil?
+    node.data
+  end
 
   def health
   end
