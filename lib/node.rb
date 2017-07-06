@@ -2,7 +2,7 @@ require_relative 'binary_search_tree'
 class Node
 
   attr_reader :score, :title, :data
-  attr_accessor :left, :right, :depth, :visited
+  attr_accessor :left, :right, :depth, :visited, :children
 
   def initialize(score, title)
   @title = title

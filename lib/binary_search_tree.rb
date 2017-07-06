@@ -3,10 +3,11 @@ require_relative 'node'
 class BinarySearchTree
 
   attr_accessor :root, :insert
+  attr_reader :total_nodes
 
   def initialize
     @root = nil
-    @results = []
+    @total_nodes = 0
   end
 
   def insert(score, title, node = @root, depth = 0)
@@ -14,6 +15,7 @@ class BinarySearchTree
       @root = Node.new(score, title)
       return depth
     else
+      node.children += 1
       case node.score <=> score
       when -1 then right_node(score, title, node, depth)
       when 1 then left_node(score, title, node, depth)
@@ -134,46 +136,44 @@ class BinarySearchTree
     end
   end
 
-  # def sort(node = @root)
-  #   if @root.nil?
-  #     return "There are no nodes in the tree"
-  #   else
-  #     @results << sort_left(node)
-  #     @results << sort_right(node)
-  #   end
-  #   @results.uniq
-  # end
-  #
-  # def sort_left(node)
-  #   sort(node.left) unless node.left.nil?
-  #   node.data
-  # end
-  #
-  # def sort_right(node)
-  #   sort(node.right) unless node.right.nil?
-  #   node.data
-  # end
-
-  def sort(node = @root)
-    if @root.nil?
+  def sort(node = @root, sorted = [])
+    if node.nil?
       return "There are no nodes in the tree."
-    elsif
-      node.nil?
+    end
+    sort(node.left, sorted)
+    sorted << node.data
+    sort(node.right, sorted)
+    @total_nodes = sorted.count
+    sorted
+  end
+
+  def health(depth, node = @root, output = [])
+    if node.nil?
       return
     end
-    sort(node.right)
-    @results << node.data
-    sort(node.left)
-    @results
+    health(depth, node.right, output)
+    if node.depth == depth
+    output << [node.score, node.children + 1, ((node.children + 1).to_f / @total_nodes.to_f * 100).round]
+    end
+    health(depth, node.left, output)
+    if output.empty?
+      return "There are no nodes at that depth"
+    else
+      output
+    end
   end
 
-  def health
+  def leaves(node = @root, output = 0)
   end
 
-  def leaves
-  end
-
-  def height
+  def height(node = @root, all_depths = [])
+    if node.nil?
+      return "There are no nodes in the tree."
+    end
+    height(node.left, all_depths)
+    all_depths << node.depth
+    height(node.right, all_depths)
+    all_depths.sort.pop
   end
 
   def delete()
