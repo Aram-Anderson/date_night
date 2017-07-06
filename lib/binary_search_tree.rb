@@ -7,7 +7,6 @@ class BinarySearchTree
 
   def initialize
     @root = nil
-    @total_nodes = 0
   end
 
   def insert(score, title, node = @root, depth = 0)
@@ -121,7 +120,7 @@ class BinarySearchTree
   end
 
   def load(file)
-  movies_inserted = 0
+    movies_inserted = 0
     parse_file(file).each do |score_title|
       insert(score_title[0].to_i, score_title[1])
       movies_inserted += 1
@@ -143,7 +142,6 @@ class BinarySearchTree
     sort(node.left, sorted)
     sorted << node.data
     sort(node.right, sorted)
-    @total_nodes = sorted.count
     sorted
   end
 
@@ -153,7 +151,7 @@ class BinarySearchTree
     end
     health(depth, node.right, output)
     if node.depth == depth
-    output << [node.score, node.children + 1, ((node.children + 1).to_f / @total_nodes.to_f * 100).round]
+    output << [node.score, node.children + 1, ((node.children + 1).to_f / sort.count.to_f * 100).round]
     end
     health(depth, node.left, output)
     if output.empty?
@@ -163,7 +161,16 @@ class BinarySearchTree
     end
   end
 
-  def leaves(node = @root, output = 0)
+  def leaves(node = @root, output = [])
+    if node.nil?
+      return "There are no nodes in the tree."
+    end
+    leaves(node.left, output)
+    if node.left.nil? && node.right.nil?
+      output << node.depth
+    end
+    leaves(node.right, output)
+    output.count
   end
 
   def height(node = @root, all_depths = [])

@@ -73,12 +73,19 @@ class TreeTest < Minitest::Test
   def test_it_can_check_health_at_specific_depth
     tree_1 = BinarySearchTree.new
     tree_1.load('./tests/movies.txt')
-    tree_1.sort
     expected = [[91, 2, 2], [88, 2, 2], [82, 2, 2], [61, 5, 5], [56, 1, 1], [54, 1, 1], [51, 9, 9], [40, 3, 3], [30, 2, 2], [28, 1, 1], [24, 7, 7], [3, 3, 3]]
 
     assert_equal [[71, 99, 100]], tree_1.health(0)
     assert_equal expected, tree_1.health(7)
   end
+
+  def test_it_can_find_leaves
+    tree = BinarySearchTree.new
+    tree.load('./tests/movies.txt')
+
+    assert_equal 35, tree.leaves
+  end
+
 
   def test_it_can_find_the_greatest_depth_in_the_tree
     tree_1 = BinarySearchTree.new
