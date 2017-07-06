@@ -167,7 +167,7 @@ class BinarySearchTree
     end
     leaves(node.left, output)
     if node.left.nil? && node.right.nil?
-      output << node.depth
+      output << node.data
     end
     leaves(node.right, output)
     output.count
